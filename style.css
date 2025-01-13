@@ -18,11 +18,16 @@
     }
 }
 
+/* general */
+
+html {
+    height: 100%;
+}
+
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
 
     font-family: roboto, sans-serif;
 
@@ -34,10 +39,15 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    min-height: 100%;
+
+    text-align: center;
 }
 
 #fast {
     transition: .1s linear;
+    cursor: pointer;
 
     position: fixed;
     top: 20px;
@@ -101,7 +111,6 @@ h1 {
 
     font-size: 64px;
     font-family: montserrat, sans-serif;
-    text-align: center;
 
     color: #EA8689;
 }
@@ -140,12 +149,7 @@ h2 {
     color: #FFFC;
 }
 
-#comment {
-    margin: 50px 0 0 0;
-
-    font-size: 16px;
-    color: #FFF7;
-}
+/* slider */
 
 label {
     cursor: pointer;
@@ -208,6 +212,76 @@ label:hover {
 
 #show:checked + .slider:before {
     left: 32px;
+}
+
+/* password */
+
+body:not(.mobile) #pass-container {
+    --w: 500px;
+}
+
+#pass-container {
+    width: var(--w);
+    padding: 10px;
+
+    border-radius: 14px;
+    background-color: #F1EDEB;
+}
+
+#passwd {
+    padding: 3px;
+
+    box-sizing: border-box;
+    width: var(--w);
+
+    border: 2px solid #0002;
+    border-radius: 10px;
+    background-color: #FFF;
+    color: #000;
+
+    font-size: 32px;
+    text-align: center;
+}
+
+#bar {
+    position: relative;
+    margin: 10px 0;
+
+    width: 100%;
+    height: 10px;
+
+    border-radius: 5px;
+    background-color: #C3C3C3;
+}
+/*
+* 481D24
+* C5283D
+* E9724C
+* FFC857
+* 267A4C
+*/
+
+#bar:after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: var(--percent);
+    height: 100%;
+
+    border-radius: 5px;
+    background-color: var(--col);
+}
+
+/* bottom */
+
+#notice {
+    margin: 50px 0 0 0;
+
+    font-size: 16px;
+    color: #FFF7;
 }
 
 #more {
