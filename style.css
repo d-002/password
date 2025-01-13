@@ -36,6 +36,40 @@ body {
     align-items: center;
 }
 
+#fast {
+    transition: .1s linear;
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50px;
+    height: 50px;
+
+    border: 1px solid transparent;
+    border-radius: 25px;
+    background-color: #FFF8;
+}
+
+#fast:hover {
+    background-color: #FFFC;
+}
+
+#fast:active {
+    border: 1px solid #0008;
+}
+
+#fast img {
+    width: 80%;
+    height: 80%;
+
+    filter: opacity(0.5);
+}
+
 #shapes {
     z-index: -1;
 
@@ -103,14 +137,14 @@ h2 {
 
     font-size: 22px;
     font-weight: normal;
-    color: #fffc;
+    color: #FFFC;
 }
 
 #comment {
     margin: 50px 0 0 0;
 
     font-size: 16px;
-    color: #fff7;
+    color: #FFF7;
 }
 
 label {
