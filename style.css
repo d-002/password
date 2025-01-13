@@ -148,18 +148,66 @@ h2 {
 }
 
 label {
+    cursor: pointer;
+
     display: flex;
     gap: 10px;
 
     margin: 20px 0;
-    padding: 10px 24px;
+    padding: 10px 20px 10px 10px;
 
+    border: 2px solid transparent;
     border-radius: 30px;
     background-color: #6D597A;
     color: #FFFCFA;
 
     font-weight: bold;
     font-size: 24px;
+}
+
+label:hover {
+    border: 2px solid #FFF1;
+}
+
+#show {
+    display: none;
+}
+
+.slider, .slider:before {
+    transition: .3s;
+}
+
+.slider {
+    position: relative;
+
+    width: 60px;
+    height: 30px;
+    box-sizing: border-box;
+
+    border: 3px solid #FFF;
+    border-radius: 15px;
+}
+
+#show:checked + .slider {
+    background-color: #EA8689;
+}
+
+.slider:before {
+    content: "";
+
+    position: absolute;
+    top: 2px;
+    left: 2px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+    background-color: #FFF;
+}
+
+#show:checked + .slider:before {
+    left: 32px;
 }
 
 #more {
