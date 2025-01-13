@@ -18,8 +18,16 @@ function applyFastMode() {
     localStorage.setItem("fastMode", fastMode);
 }
 
+function resize() {
+    let mobile = document.body.clientHeight > document.body.clientWidth;
+    document.body.className = mobile ? "mobile" : "";
+}
+
 window.onload = () => {
     Object.keys(dom).forEach(id => dom[id] = document.getElementById(id));
 
     loadFastMode();
+
+    resize();
+    window.addEventListener("resize", resize);
 };

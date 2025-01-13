@@ -115,11 +115,11 @@ h1 {
     color: #EA8689;
 }
 
-h1, h1::before, h1::after {
+h1, body:not(.mobile) :is(h1::before, h1::after) {
     filter: drop-shadow(0 0 10px #B5657680);
 }
 
-h1::before, h1::after {
+body:not(.mobile) h1::before, body:not(.mobile) h1::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -220,6 +220,10 @@ body:not(.mobile) #pass-container {
     --w: 500px;
 }
 
+body.mobile #pass-container {
+    --w: 80%;
+}
+
 #pass-container {
     width: var(--w);
     padding: 10px;
@@ -232,7 +236,7 @@ body:not(.mobile) #pass-container {
     padding: 3px;
 
     box-sizing: border-box;
-    width: var(--w);
+    width: 100%;
 
     border: 2px solid #0002;
     border-radius: 10px;
