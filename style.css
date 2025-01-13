@@ -51,6 +51,13 @@ body {
 
 #shapes>div {
     position: absolute;
+}
+
+#shapes.fast>div {
+    display: none;
+}
+
+#shapes:not(.fast)>div {
     animation: var(--dt) revolve linear infinite;
     box-shadow: 0 0 50px #0003;
 }
