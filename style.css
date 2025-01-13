@@ -1,0 +1,22 @@
+@font-face {
+    font-family: roboto;
+    src: url("fonts/roboto.ttf");
+}
+
+@font-face {
+    font-family: montserrat;
+    src: url("fonts/montserrat.ttf");
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    font-family: roboto, sans-serif;
+}
+
+h1 {
+    font-family: montserrat, sans-serif;
+}
