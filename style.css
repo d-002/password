@@ -46,17 +46,17 @@ body {
     height: 100%;
 
     /* bg color here to avoid hiding the shapes because of the z-index */
-    background-color: #355070;
+    background: radial-gradient(#355070, #203145);
 }
 
 #shapes>div {
     position: absolute;
-
     animation: var(--dt) revolve linear infinite;
+    box-shadow: 0 0 50px #0003;
 }
 
 h1 {
-    margin: 40px 0;
+    margin: 20px 0;
 
     font-size: 64px;
     font-family: montserrat, sans-serif;
@@ -91,11 +91,26 @@ h1::after {
     left: 110%;
 }
 
+h2 {
+    margin: 20px 0;
+
+    font-size: 22px;
+    font-weight: normal;
+    color: #fffc;
+}
+
+#comment {
+    margin: 50px 0 0 0;
+
+    font-size: 16px;
+    color: #fff7;
+}
+
 label {
     display: flex;
     gap: 10px;
 
-    margin-bottom: 20px;
+    margin: 20px 0;
     padding: 10px 24px;
 
     border-radius: 30px;
@@ -106,9 +121,25 @@ label {
     font-size: 24px;
 }
 
-p {
-    margin: 50px 0 0 0;
+#more {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
 
-    font-size: 16px;
-    color: #fff7;
+    margin: 0;
+
+    transform: translateX(-50%);
+}
+
+#more::after {
+    content: "⌄";
+
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 80px;
+    color: #EA8689;
 }
