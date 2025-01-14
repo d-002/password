@@ -143,6 +143,7 @@ window.onload = () => {
 
     loadFastMode();
     dom.passwd.addEventListener("input", onChange);
+    dom.passwd.focus();
 
     resize();
     window.addEventListener("resize", resize);
