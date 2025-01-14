@@ -1,11 +1,15 @@
 let dom = {
     "shapes": null,
     "show": null,
+    "pass-container": null,
     "passwd": null,
     "feedback": null,
-    "pass-container": null
+    "tips": null
 };
 let fastMode;
+
+let lastTest = 0;
+let testsDelay = 100;
 
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
@@ -41,15 +45,44 @@ function onChange() {
         return setCol((lowercase || uppercase) + digit + special, 50 + sum * 7.5, "Your password can easily be guessed, try adding "+type);
     }
 
-    if (canBeGuessed(pwd))
-        return setCol(3, 80, "Your password is good, but can still be guessed");
-    return setCol(4, 100, "Congratulations! Your password is secure.");
+    scheduleTests(pwd, Date.now());
+}
+
+function scheduleTests(pwd, ts) {
+    // limit the rate at which tests should be run
+
+    let dt = ts-lastTest;
+    let delay;
+
+    if (dt > testsDelay) delay = 0;
+    else delay = testsDelay-dt;
+
+    window.setTimeout(() => {
+        // only trigger this once per "batch"
+        if (Date.now()-lastTest < testsDelay) return;
+        lastTest = Date.now();
+
+        if (canBeGuessed(pwd))
+            setCol(3, 80, "Your password is good, but can still be guessed");
+        else
+            setCol(4, 100, "Congratulations! Your password is secure.");
+    }, delay);
 }
 
 // secondary password check
 
+function addTip(message, start, end) {
+    let bar = document.createElement("div");
+    let li = document.createElement("li");
+
+    dom.underlines.appendChild(line);
+    dom.tips.appendChild(li);
+}
 function canBeGuessed(pwd) {
-    return false;
+    let ok = true;
+    dom.tips.innerHTML = "";
+
+    return ok;
 }
 
 // listeners
