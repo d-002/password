@@ -24,15 +24,15 @@
         <h2>Build a strong password in seconds! Start by typing something below:</h2>
 
         <label>
-            <input type="checkbox" id="show" />
+            <input type="checkbox" id="show" checked onclick="updateShow()" />
             <div class="slider"></div>
             <span>Display password</span>
         </label>
 
         <div id="pass-container">
-            <input id="passwd" />
+            <input id="passwd" type="text" />
             <div id="bar"></div>
-            <span id="feedback">Dummy feedback, to delete once in production.</span>
+            <span id="feedback"></span>
 
             <ul id="tips">
             </ul>
