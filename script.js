@@ -3,6 +3,7 @@ let dom = {
     "show": null,
     "pass-container": null,
     "passwd": null,
+    "underlines": null,
     "feedback": null,
     "tips": null
 };
@@ -26,6 +27,7 @@ function onChange() {
 
     if (!pwd.length)
         return setCol(-1, 0, "");
+    return scheduleTests(pwd, Date.now());
 
     if (pwd.length < 14)
         return setCol(0, pwd.length / 0.28, "Good passwords are at least 14 characters long.");
@@ -63,7 +65,7 @@ function scheduleTests(pwd, ts) {
         lastTest = Date.now();
 
         if (canBeGuessed(pwd))
-            setCol(3, 80, "Your password is good, but can still be guessed");
+            setCol(3, 80, "Your password is good, but can still be guessed.<br />Follow the instructions below to improve it:");
         else
             setCol(4, 100, "Congratulations! Your password is secure.");
     }, delay);
@@ -71,16 +73,31 @@ function scheduleTests(pwd, ts) {
 
 // secondary password check
 
+function strmult(c, n) {
+    let s = "";
+    for (let i = 0; i < n; i++) s += c;
+    return s;
+}
+
 function addTip(message, start, end) {
-    let bar = document.createElement("div");
-    let li = document.createElement("li");
+    let line = document.createElement("div");
+    let tip = document.createElement("p");
+
+    let offset = strmult("-", start);
+    let content = strmult(".", end-start);
+    line.innerHTML = "<div>"+offset+"</div><div class=\"bar\">"+content+"</div>";
+
+    tip.innerHTML = message;
 
     dom.underlines.appendChild(line);
-    dom.tips.appendChild(li);
+    dom.tips.appendChild(tip);
 }
+
 function canBeGuessed(pwd) {
     let ok = true;
+    dom.underlines.innerHTML = "";
     dom.tips.innerHTML = "";
+    addTip("Dummy tip, to remove in production", 0, pwd.length);
 
     return ok;
 }

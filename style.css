@@ -244,6 +244,7 @@ body.mobile #pass-container {
     color: #000;
 
     font-size: 32px;
+    font-family: "consolas";
     text-align: center;
 }
 
@@ -279,12 +280,39 @@ body.mobile #pass-container {
     font-weight: bold;
 }
 
-#tips {
-    margin: 0;
+/* underlines and tips */
+
+#underlines>div {
+    display: flex;
+    justify-content: center;
+
+    margin: 3px;
+
+    color: transparent;
+
+    font-family: "consolas";
+    font-size: 32px;
 }
 
-#tips li {
-    margin: 0;
+#underlines .bar {
+    height: 6px;
+
+    border-radius: 3px;
+    background-color: #f00;
+}
+
+#tips {
+    margin-top: 20px;
+
+    border-top: 1px solid #0003;
+}
+
+#tips p {
+    margin: 10px 0;
+
+    color: #f00;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 /* bottom */
