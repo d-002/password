@@ -25,8 +25,10 @@ function setCol(i, percent, comment) {
 function onChange() {
     let pwd = dom.passwd.value;
 
-    if (!pwd.length)
+    if (!pwd.length) {
+        clearTips();
         return setCol(-1, 0, "");
+    }
     return scheduleTests(pwd, Date.now());
 
     if (pwd.length < 14)
@@ -79,7 +81,14 @@ function strmult(c, n) {
     return s;
 }
 
+function clearTips() {
+    dom.underlines.innerHTML = "";
+    dom.tips.innerHTML = "";
+}
+
 function addTip(message, start, end) {
+    clearTips();
+
     let line = document.createElement("div");
     let tip = document.createElement("p");
 
@@ -95,8 +104,6 @@ function addTip(message, start, end) {
 
 function canBeGuessed(pwd) {
     let ok = true;
-    dom.underlines.innerHTML = "";
-    dom.tips.innerHTML = "";
     addTip("Dummy tip, to remove in production", 0, pwd.length);
 
     return ok;
