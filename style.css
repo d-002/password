@@ -282,21 +282,23 @@ body.mobile #pass-container {
 
 /* underlines and tips */
 
-#underlines>div {
+#underlines .bar-container {
     display: flex;
     justify-content: center;
 
     margin: 3px;
 
     color: transparent;
+}
+
+#underlines .bar-container div {
+    height: 6px;
 
     font-family: "consolas";
     font-size: 32px;
 }
 
 #underlines .bar {
-    height: 6px;
-
     border-radius: 3px;
     background-color: #f00;
 }

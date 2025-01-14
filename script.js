@@ -86,15 +86,14 @@ function clearTips() {
     dom.tips.innerHTML = "";
 }
 
-function addTip(message, start, end) {
-    clearTips();
-
+function addTip(message, start, end, len) {
     let line = document.createElement("div");
     let tip = document.createElement("p");
 
-    let offset = strmult("-", start);
+    let offset1 = strmult("-", start);
     let content = strmult(".", end-start);
-    line.innerHTML = "<div>"+offset+"</div><div class=\"bar\">"+content+"</div>";
+    let offset2 = strmult("-", len-end);
+    line.innerHTML = "<div class=\"bar-container\"><div>"+offset1+"</div><div class=\"bar\">"+content+"</div><div>"+offset2+"</div></div>";
 
     tip.innerHTML = message;
 
@@ -103,10 +102,36 @@ function addTip(message, start, end) {
 }
 
 function canBeGuessed(pwd) {
-    let ok = true;
-    addTip("Dummy tip, to remove in production", 0, pwd.length);
+    clearTips();
 
-    return ok;
+    let can = false;
+
+    let l = pwd.length;
+
+    // check for repeated letters
+    let prev = "";
+    let count = 0;
+    for (let i = 0; i <= l; i++) {
+        let c = i == l ? "" : pwd[i];
+
+        if (c == prev) count++;
+        else {
+            if (count > 1) {
+                addTip("Remove repeated letters", i-count, i, l);
+                can = true;
+            }
+            count = 1;
+        }
+        prev = c;
+    }
+    // check for ascending or descending sequences
+    // check for known passwords
+    // check for proportion of letters usage and compare to english language
+    // check for obvious addition of numbers or symbols
+    // check for vowel alternance (vowel + 1 or 2 consonants, repeated twice)
+    // check for too low of a char diversity
+
+    return can;
 }
 
 // listeners
