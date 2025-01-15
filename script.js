@@ -372,7 +372,6 @@ window.onload = () => {
 
     loadFastMode();
     dom.passwd.addEventListener("input", onChange);
-    dom.passwd.focus();
 
     underlines.addEventListener("mouseover", onHoverTipE);
     underlines.addEventListener("mouseout", onHoverTipL);

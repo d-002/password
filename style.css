@@ -221,8 +221,10 @@ body.mobile #pass-container {
 }
 
 #pass-container {
-    width: var(--w);
+    margin-bottom: 30px;
     padding: 10px;
+
+    width: var(--w);
 
     border-radius: 14px;
     background-color: #F1EDEB;
@@ -243,6 +245,10 @@ body.mobile #pass-container {
     font-size: 32px;
     font-family: "consolas";
     text-align: center;
+}
+
+#passwd::placeholder {
+    color: #C3C3C3;
 }
 
 #bar {
@@ -330,11 +336,22 @@ body.mobile #pass-container {
 
 /* bottom */
 
-#notice {
-    margin: 50px 0 0 0;
+.notice {
+    margin: 1em 0;
 
     font-size: 16px;
     color: #FFF7;
+}
+
+.notice a {
+    color: #EAAC8B;
+
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.notice a:hover {
+    color: #F1C1A7;
 }
 
 #more {

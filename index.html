@@ -31,7 +31,7 @@
         </label>
 
         <div id="pass-container">
-            <input id="passwd" type="text" />
+            <input id="passwd" type="text" placeholder="Password" title="Enter a password here" />
             <div id="underlines">
             </div>
 
@@ -42,8 +42,18 @@
             </div>
         </div>
 
-        <p id="notice">We don't store any of the passwords you type here, nothing leaves your browser. No cookies, nothing.</p>
+        <p class="notice">We don't store any of the passwords you type here, nothing leaves your browser. No cookies, nothing.</p>
 
-        <h2 id="more" title="Scroll down for more tips">More tips</h2>
+        <h2 id="more" title="Scroll down for more">More tips</h2>
+
+        <p class="notice">
+            Password hashes:
+            <a href="https://www.pwnedpasswords.com">pwnedpasswords.com</a>
+            - English dictionary:
+            <a href="https://raw.githubusercontent.com/filiph/english_words/master/data/word-freq-top5000.csv">filiph on GitHub</a>
+        </p>
+
+        <div id="more-container">
+        </div>
     </body>
 </html>
