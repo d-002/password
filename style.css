@@ -341,7 +341,7 @@ body.mobile #pass-container {
 }
 
 #popup.hidden {
-    display: block;
+    display: none;
 }
 
 /* bottom */

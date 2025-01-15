@@ -5,9 +5,12 @@ let dom = {
     "passwd": null,
     "underlines": null,
     "feedback": null,
-    "tips": null
+    "tips": null,
+    "popup": null
 };
+
 let fastMode;
+let seenPopup;
 
 let vowels = "aeiou";
 let consonants = "bcdfghjklmnpqrstvwxyz";
@@ -63,6 +66,11 @@ function setCol(i, percent, comment) {
     let col = i == -1 ? "transparent" : barCols[i];
     dom["pass-container"].style = "--percent: "+percent+"%; --col: "+col;
     dom.feedback.innerHTML = comment;
+}
+
+function updateShow() {
+    let show = dom.show.checked;
+    dom.passwd.type = show ? "text" : "password";
 }
 
 function onChange() {
@@ -336,11 +344,13 @@ function checkPwned(pwd) {
     }, Math.max(apiCheckDelay-apiLastTest, 0));
 }
 
-// listeners
+// settings and local storage
 
-function loadFastMode() {
+function loadStorage() {
     fastMode = parseInt(localStorage.getItem("fastMode")) || 0;
     applyFastMode();
+
+    seenPopup = parseInt(localStorage.getItem("seenPopup")) || 0;
 }
 
 function toggleFastMode() {
@@ -353,14 +363,24 @@ function applyFastMode() {
     localStorage.setItem("fastMode", fastMode);
 }
 
-function updateShow() {
-    let show = dom.show.checked;
-    dom.passwd.type = show ? "text" : "password";
-}
-
 function resize() {
     let mobile = document.body.clientHeight > document.body.clientWidth;
     document.body.className = mobile ? "mobile" : "";
+}
+
+function showPopup() {
+    // don't show the popup more than once a day
+    if (Date.now()-seenPopup < 86400000) return;
+
+    dom.popup.className = "";
+}
+
+function hidePopup() {
+    dom.popup.className = "hidden";
+
+    // update local storage
+    seenPopup = Date.now();
+    localStorage.setItem("seenPopup", seenPopup);
 }
 
 // page start
@@ -370,7 +390,7 @@ window.onload = () => {
 
     loadDictionary();
 
-    loadFastMode();
+    loadStorage();
     dom.passwd.addEventListener("input", onChange);
 
     underlines.addEventListener("mouseover", onHoverTipE);
