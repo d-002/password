@@ -72,6 +72,8 @@ function onChange() {
         return setCol(-1, 0, "");
     }
 
+    checkPwned(pwd);
+
     if (pwd.length < 12)
         return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long.");
 
@@ -217,7 +219,7 @@ function canBeGuessed(pwd, callback) {
     if (dictionaryLoaded)
         for (let i = 0, I = l-2; i < I; i++) {
             for (let j = i+3; j <= l; j++) {
-                let word = pwd.substring(i, j);
+                let word = pwd.substring(i, j).toLowerCase();
 
                 if (dictionary.has(word))
                     addTip("Detected a common English word", i, j, pwd);
