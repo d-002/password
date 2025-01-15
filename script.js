@@ -86,16 +86,16 @@ function clearTips() {
     dom.tips.innerHTML = "";
 }
 
-function addTip(message, start, end, len) {
+function addTip(message, start, end, pwd) {
     let line = document.createElement("div");
     let tip = document.createElement("p");
 
     let offset1 = strmult("-", start);
     let content = strmult(".", end-start);
-    let offset2 = strmult("-", len-end);
+    let offset2 = strmult("-", pwd.length-end);
     line.innerHTML = "<div class=\"bar-container\"><div>"+offset1+"</div><div class=\"bar\">"+content+"</div><div>"+offset2+"</div></div>";
 
-    tip.innerHTML = message;
+    tip.innerHTML = message + " ("+pwd.substring(start, end)+")";
 
     dom.underlines.appendChild(line);
     dom.tips.appendChild(tip);
@@ -118,7 +118,7 @@ function canBeGuessed(pwd) {
         if (c == prev) count++;
         else {
             if (count > 1) {
-                addTip("Remove repeated letters", i-count, i, l);
+                addTip("Remove repeated letters", i-count, i, pwd);
                 can = true;
             }
             count = 1;
@@ -138,9 +138,8 @@ function canBeGuessed(pwd) {
         let d = Math.abs(code-prevCode);
         if (d == prevD || prevD == -1) count++;
         else {
-            console.log(count, d, prevD, i);
             if (count > 1 && prevD > 0 && prevD < 3) {
-                addTip("Remove predictable letter sequences", i-count-1, i, l);
+                addTip("Remove predictable letter sequences", i-count-1, i, pwd);
                 can = true;
             }
             count = 1;
