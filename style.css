@@ -334,6 +334,16 @@ body.mobile #pass-container {
     --col: #EA8689;
 }
 
+/* popup */
+
+#popup {
+    position: fixed;
+}
+
+#popup.hidden {
+    display: block;
+}
+
 /* bottom */
 
 .notice {
