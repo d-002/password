@@ -111,6 +111,7 @@ function canBeGuessed(pwd) {
     // check for repeated letters
     let prev = "";
     let count = 0;
+
     for (let i = 0; i <= l; i++) {
         let c = i == l ? "" : pwd[i];
 
@@ -122,13 +123,41 @@ function canBeGuessed(pwd) {
             }
             count = 1;
         }
+
         prev = c;
     }
+
     // check for ascending or descending sequences
+    let prevCode = -1;
+    let prevD = -1;
+    count = 0;
+
+    for (let i = 0; i <= l; i++) {
+        let code = i == l ? -1 : pwd.charCodeAt(i);
+
+        let d = Math.abs(code-prevCode);
+        if (d == prevD || prevD == -1) count++;
+        else {
+            console.log(count, d, prevD, i);
+            if (count > 1 && prevD > 0 && prevD < 3) {
+                addTip("Remove predictable letter sequences", i-count-1, i, l);
+                can = true;
+            }
+            count = 1;
+        }
+
+        prevCode = code;
+        prevD = d;
+    }
+
     // check for known passwords
+
     // check for proportion of letters usage and compare to english language
+
     // check for obvious addition of numbers or symbols
+
     // check for vowel alternance (vowel + 1 or 2 consonants, repeated twice)
+
     // check for too low of a char diversity
 
     return can;
