@@ -22,7 +22,7 @@ let apiCheckDelay = 300;
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
 let dictionaryLoaded = false;
-let dictionary = new Set();
+let dictionary = new Set(["pwd", "usr", "sudo", "mac", "ios", "linux", "jan", "feb", "mar", "apr", "jun", "sep", "oct", "nov", "dec"]);
 
 // dictionary setup
 
@@ -69,10 +69,9 @@ function onChange() {
         clearTips();
         return setCol(-1, 0, "");
     }
-    return scheduleTests(pwd, Date.now());
 
-    if (pwd.length < 14)
-        return setCol(0, pwd.length / 0.28, "Good passwords are at least 14 characters long.");
+    if (pwd.length < 12)
+        return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long.");
 
     let lowercase = false, uppercase = false, digit = false, special = false;
     Array.from(pwd).forEach(c => {
@@ -236,7 +235,7 @@ function canBeGuessed(pwd, callback) {
         let consonant = consonants.includes(c);
         let type = vowel ? 0 : consonant ? 1 : 2;
 
-        if (type == 2) {
+        if (type == 2 || type == lastType) {
             if (count > 2) addTip("Avoid vowel/consonant patterns, since they look like words", i-count-1, i, pwd);
             count = 0;
         }
@@ -276,7 +275,6 @@ function checkPwned(pwd) {
         let hashStart = hash.substring(0, 5);
 
         fetch("https://api.pwnedpasswords.com/range/"+hashStart).then(response => {
-            return;
             if (!response.ok) {
                 console.error("Failed to fetch password hash database, status "+response.status);
                 return;
