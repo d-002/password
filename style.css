@@ -23,7 +23,6 @@
 body, html {
     margin: 0;
     padding: 0;
-    width: 100%;
 
     font-family: roboto, sans-serif;
 
@@ -35,7 +34,8 @@ body {
     flex-direction: column;
     align-items: center;
 
-    margin-top: 10%;
+    width: 90%;
+    margin: 10% 5%;
 
     text-align: center;
 }
@@ -363,8 +363,11 @@ body.mobile #pass-container {
     width: 40px;
     height: 40px;
 
+    /* extend cursor region */
+    padding-top: 20px;
+
     background-image: url("images/down.png");
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     filter: invert(1) opacity(0.8);
 
