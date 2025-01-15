@@ -159,6 +159,25 @@ function canBeGuessed(pwd, callback) {
     // check for inclusion of common words
 
     // check for obvious addition of numbers or symbols
+    for (let n = 0; n < 2; n++) {
+        let type = n ? "special characters" : "numbers";
+
+        let lastLetter = 0;
+        let firstNonLetter = 0;
+        for (let i = 0; i < l; i++) {
+            let code = pwd.charCodeAt(i);
+
+            if (code >= 97 && code <= 122) lastLetter = i;
+            else if (code >= 65 && code <= 97) lastLetter = i;
+            else {
+                let isNumber = code >= 48 && code <= 57;
+                if ((n ^ isNumber) && !firstNonLetter) firstNonLetter = i;
+            }
+        }
+
+        if (firstNonLetter > lastLetter)
+            addTip("Don't just append "+type+", place them randomly inside your password", firstNonLetter, pwd.length, pwd, false);
+    }
 
     // check for vowel alternance (vowel + 1 or 2 consonants, repeated twice)
 
