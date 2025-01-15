@@ -219,8 +219,10 @@ function canBeGuessed(pwd, callback) {
             for (let j = i+3; j <= l; j++) {
                 let word = pwd.substring(i, j).toLowerCase();
 
-                if (dictionary.has(word))
+                if (dictionary.has(word)) {
                     addTip("Detected a common English word", i, j, pwd);
+                    can = true;
+                }
             }
         }
     else addTip("Dictionary is not yet loaded, continue typing for English words suggestions", 0, 0, pwd, false);
@@ -242,8 +244,10 @@ function canBeGuessed(pwd, callback) {
             }
         }
 
-        if (firstNonLetter > lastLetter)
+        if (firstNonLetter > lastLetter) {
             addTip("Don't just append "+type+", place them randomly inside your password", firstNonLetter, pwd.length, pwd, false);
+            can = true;
+        }
     }
 
     // check for vowel alternance
@@ -259,6 +263,7 @@ function canBeGuessed(pwd, callback) {
 
         if (type == 2 || type == lastType) {
             if (count > 2) addTip("Avoid vowel/consonant patterns, since they look like words", i-count-1, i, pwd);
+            can = true;
             count = 0;
         }
         else if (lastType != 2 && (type ^ lastType)) count++;
@@ -275,8 +280,10 @@ function canBeGuessed(pwd, callback) {
         lettersCount++;
     });
 
-    if (letters.length / lettersCount <= 0.6)
+    if (letters.length / lettersCount <= 0.6) {
         addTip("Use more diverse letters (not always the same ones)", 0, pwd.length, pwd, false);
+        can = true;
+    }
 
     // check for known passwords
     checkPwned(pwd);
