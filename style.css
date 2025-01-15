@@ -20,10 +20,6 @@
 
 /* general */
 
-html {
-    height: 100%;
-}
-
 body, html {
     margin: 0;
     padding: 0;
@@ -37,16 +33,15 @@ body, html {
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 
-    min-height: 100%;
+    margin-top: 10%;
 
     text-align: center;
 }
 
 #fast {
-    transition: .1s linear;
+    transition: .1s linear background-color;
     cursor: pointer;
 
     z-index: 1;
@@ -343,8 +338,11 @@ body.mobile #pass-container {
 }
 
 #more {
+    cursor: pointer;
+    transition: .3s transform;
+
     position: absolute;
-    bottom: 100px;
+    bottom: 80px;
     left: 50%;
 
     margin: 0;
@@ -353,14 +351,31 @@ body.mobile #pass-container {
 }
 
 #more::after {
-    content: "⌄";
+    content: ".";
+
+    transition: .3s transform;
+    transform: translateX(-50%);
 
     position: absolute;
     bottom: -50px;
     left: 50%;
 
-    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+
+    background-image: url("images/down.png");
+    background-size: cover;
+    background-position: center;
+    filter: invert(1) opacity(0.8);
 
     font-size: 80px;
-    color: #EA8689;
+    color: transparent;
+}
+
+#more:hover {
+    transform: translate(-50%, 10px);
+}
+
+#more:hover::after {
+    transform: translate(-50%, 10px);
 }
