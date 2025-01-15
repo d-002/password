@@ -120,21 +120,27 @@ function scheduleTests(pwd) {
 // bars handling
 
 function clearTips() {
-    Array.from(dom.underlines.children).forEach(c => c.remove());
-    Array.from(dom.tips.children).forEach(c => c.remove());
+    dom.underlines.innerHTML = "";
+    dom.tips.innerHTML = "";
 }
 
-function onHoverBars(evt) {
+function onHoverTip(evt, enter) {
+    let target = evt.target;
+    // target can be the container: do nothing
+    if (target == dom.underlines || target == dom.tips) return;
 
+    // target can be an element inside the relevant element
+    while (target.parentNode.id == "" && target != document.body) target = target.parentNode;
+    if (target == document.body) return; // failsafe
+
+    let i = Array.from(target.parentNode.children).indexOf(target);
+    let className = enter ? "hover" : "";
+    dom.underlines.children[i].className = className;
+    dom.tips.children[i].className = className;
 }
 
-// secondary password check
-
-function strmult(c, n) {
-    let s = "";
-    for (let i = 0; i < n; i++) s += c;
-    return s;
-}
+let onHoverTipE = evt => onHoverTip(evt, true);
+let onHoverTipL = evt => onHoverTip(evt, false);
 
 function addTip(message, start, end, pwd, addSubstring=true) {
     let line = document.createElement("div");
@@ -150,6 +156,14 @@ function addTip(message, start, end, pwd, addSubstring=true) {
 
     dom.underlines.appendChild(line);
     dom.tips.appendChild(tip);
+}
+
+// secondary password check
+
+function strmult(c, n) {
+    let s = "";
+    for (let i = 0; i < n; i++) s += c;
+    return s;
 }
 
 function canBeGuessed(pwd, callback) {
@@ -352,6 +366,11 @@ window.onload = () => {
     loadFastMode();
     dom.passwd.addEventListener("input", onChange);
     dom.passwd.focus();
+
+    underlines.addEventListener("mouseover", onHoverTipE);
+    underlines.addEventListener("mouseout", onHoverTipL);
+    tips.addEventListener("mouseover", onHoverTipE);
+    tips.addEventListener("mouseout", onHoverTipL);
 
     resize();
     window.addEventListener("resize", resize);

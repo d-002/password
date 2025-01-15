@@ -301,12 +301,14 @@ body.mobile #pass-container {
 }
 
 #underlines .bar {
+    cursor: pointer;
+
     --col: #B56576;
     border-radius: 3px;
     background-color: var(--col);
 }
 
-#underlines .bar.hover {
+#underlines .hover .bar {
     --col: #EA8689;
 }
 
@@ -317,6 +319,8 @@ body.mobile #pass-container {
 }
 
 #tips p {
+    cursor: pointer;
+
     margin: 10px 0;
 
     --col: #B56576;
