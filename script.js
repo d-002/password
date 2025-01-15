@@ -12,8 +12,9 @@ let fastMode;
 let vowels = "aeiou";
 let consonants = "bcdfghjklmnpqrstvwxyz";
 
-let lastTest = 0;
-let testsDelay = 100;
+let testLast = 0;
+let testCheckId = 0;
+let testCheckDelay = 100;
 
 let apiLastTest = 0;
 let apiCheckId = 0;
@@ -96,18 +97,13 @@ function onChange() {
 }
 
 function scheduleTests(pwd) {
-    // limit the rate at which tests should be run
+    testCheckId++;
 
-    let dt = Date.now()-lastTest;
-    let delay;
-
-    if (dt > testsDelay) delay = 0;
-    else delay = testsDelay-dt;
+    let id = testCheckId;
 
     window.setTimeout(() => {
-        // only trigger this once per "batch"
-        if (Date.now()-lastTest < testsDelay) return;
-        lastTest = Date.now();
+        // don't check too many times to save resources
+        if (testCheckId != id) return;
 
         canBeGuessed(pwd, can => {
             if (can)
@@ -115,7 +111,9 @@ function scheduleTests(pwd) {
             else
                 setCol(4, 100, "Congratulations! Your password is secure.");
         });
-    }, delay);
+
+        testLast = Date.now();
+    }, Math.max(testCheckDelay-testLast, 0));
 }
 
 // bars handling
@@ -319,12 +317,13 @@ function checkPwned(pwd) {
                     found = count;
                 });
 
-                apiLastTest = Date.now();
                 if (found) {
                     let count = "(at least "+found+" time"+(found > 1 ? "s)" : ")");
                     setCol(0, 100, "WARNING: this password appeared in a data breach!<br />"+count+"<br />More info below");
                     clearTips();
                 }
+
+                apiLastTest = Date.now();
             });
         });
     }, Math.max(apiCheckDelay-apiLastTest, 0));
