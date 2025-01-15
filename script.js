@@ -27,6 +27,8 @@ let dictionary = new Set(["pwd", "usr", "sudo", "mac", "ios", "linux", "jan", "f
 // dictionary setup
 
 function loadDictionary() {
+    let prev = Date.now();
+
     fetch("https://raw.githubusercontent.com/filiph/english_words/master/data/word-freq-top5000.csv").then(response => {
         if (!response.ok) {
             console.error("Failed to fetch dictionary, status "+response.status);
@@ -49,7 +51,7 @@ function loadDictionary() {
             });
 
             dictionaryLoaded = true;
-            console.log("Done loading English dictionary");
+            console.log("Done loading dictionary (took "+(Date.now()-prev)+"ms)");
         });
     });
 }
@@ -69,6 +71,7 @@ function onChange() {
         clearTips();
         return setCol(-1, 0, "");
     }
+    return scheduleTests(pwd);
 
     if (pwd.length < 12)
         return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long.");
@@ -88,13 +91,13 @@ function onChange() {
         return setCol((lowercase || uppercase) + digit + special, 50 + sum * 7.5, "Your password can easily be guessed, try adding "+type);
     }
 
-    scheduleTests(pwd, Date.now());
+    scheduleTests(pwd);
 }
 
-function scheduleTests(pwd, ts) {
+function scheduleTests(pwd) {
     // limit the rate at which tests should be run
 
-    let dt = ts-lastTest;
+    let dt = Date.now()-lastTest;
     let delay;
 
     if (dt > testsDelay) delay = 0;
@@ -114,17 +117,23 @@ function scheduleTests(pwd, ts) {
     }, delay);
 }
 
+// bars handling
+
+function clearTips() {
+    Array.from(dom.underlines.children).forEach(c => c.remove());
+    Array.from(dom.tips.children).forEach(c => c.remove());
+}
+
+function onHoverBars(evt) {
+
+}
+
 // secondary password check
 
 function strmult(c, n) {
     let s = "";
     for (let i = 0; i < n; i++) s += c;
     return s;
-}
-
-function clearTips() {
-    dom.underlines.innerHTML = "";
-    dom.tips.innerHTML = "";
 }
 
 function addTip(message, start, end, pwd, addSubstring=true) {

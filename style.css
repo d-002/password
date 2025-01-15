@@ -49,6 +49,7 @@ body {
     transition: .1s linear;
     cursor: pointer;
 
+    z-index: 1;
     position: fixed;
     top: 20px;
     right: 20px;
@@ -230,6 +231,7 @@ body.mobile #pass-container {
 
     border-radius: 14px;
     background-color: #F1EDEB;
+    box-shadow: 0 0 20px #FFF3;
 }
 
 #passwd {
@@ -299,11 +301,16 @@ body.mobile #pass-container {
 }
 
 #underlines .bar {
+    --col: #B56576;
     border-radius: 3px;
-    background-color: #f00;
+    background-color: var(--col);
 }
 
-#tips {
+#underlines .bar.hover {
+    --col: #EA8689;
+}
+
+#tips:has(*) {
     margin-top: 20px;
 
     border-top: 1px solid #0003;
@@ -312,9 +319,14 @@ body.mobile #pass-container {
 #tips p {
     margin: 10px 0;
 
-    color: #f00;
+    --col: #B56576;
+    color: var(--col);
     font-size: 14px;
     font-weight: bold;
+}
+
+#tips p.hover {
+    --col: #EA8689;
 }
 
 /* bottom */

@@ -1,11 +1,16 @@
 tips:
+we don't store data
+not a guarantee your password is safe, collection of ways to improve passwords
 password manager
 use different passwords
+why uppercase / numbers etc + brute force
 why longer
 change regularly
 don't reuse
-we don't store data
-not a guarantee your password is safe, collection of ways to improve passwords
 2fa
+make sure to explain every optimization technique used
 
 ADD SOURCE
+
+fix bug desync, use id like hashes checks
+coloring, hover
