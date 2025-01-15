@@ -9,6 +9,9 @@ let dom = {
 };
 let fastMode;
 
+let vowels = "aeiou";
+let consonants = "bcdfghjklmnpqrstvwxyz";
+
 let lastTest = 0;
 let testsDelay = 100;
 
@@ -179,7 +182,25 @@ function canBeGuessed(pwd, callback) {
             addTip("Don't just append "+type+", place them randomly inside your password", firstNonLetter, pwd.length, pwd, false);
     }
 
-    // check for vowel alternance (vowel + 1 or 2 consonants, repeated twice)
+    // check for vowel alternance
+    let lastType = 2; // 0 for vowel, 1 for consonant, 2 for other
+    count = 0;
+
+    for (let i = 0; i <= l; i++) {
+        let c = i == l ? "\0" : pwd[i].toLowerCase();
+
+        let vowel = vowels.includes(c);
+        let consonant = consonants.includes(c);
+        let type = vowel ? 0 : consonant ? 1 : 2;
+
+        if (type == 2) {
+            if (count > 2) addTip("Avoid vowel/consonant patterns, since they look like words", i-count-1, i, pwd);
+            count = 0;
+        }
+        else if (lastType != 2 && (type ^ lastType)) count++;
+
+        lastType = type;
+    }
 
     // check for too low of a char diversity
     let lettersCount = 0;
