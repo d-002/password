@@ -71,7 +71,6 @@ function onChange() {
         clearTips();
         return setCol(-1, 0, "");
     }
-    return scheduleTests(pwd);
 
     if (pwd.length < 12)
         return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long.");
