@@ -12,6 +12,10 @@ let fastMode;
 let lastTest = 0;
 let testsDelay = 100;
 
+let apiLastTest = 0;
+let apiCheckId = 0;
+let apiCheckDelay = 300;
+
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
 // primary password check
@@ -66,10 +70,12 @@ function scheduleTests(pwd, ts) {
         if (Date.now()-lastTest < testsDelay) return;
         lastTest = Date.now();
 
-        if (canBeGuessed(pwd))
-            setCol(3, 80, "Your password is good, but can still be guessed.<br />Follow the instructions below to improve it:");
-        else
-            setCol(4, 100, "Congratulations! Your password is secure.");
+        canBeGuessed(pwd, can => {
+            if (can)
+                setCol(3, 80, "Your password is good, but can still be guessed.<br />Follow the instructions below to improve it:");
+            else
+                setCol(4, 100, "Congratulations! Your password is secure.");
+        });
     }, delay);
 }
 
@@ -101,7 +107,7 @@ function addTip(message, start, end, pwd) {
     dom.tips.appendChild(tip);
 }
 
-function canBeGuessed(pwd) {
+function canBeGuessed(pwd, callback) {
     clearTips();
 
     let can = false;
@@ -149,8 +155,6 @@ function canBeGuessed(pwd) {
         prevD = d;
     }
 
-    // check for known passwords
-
     // check for proportion of letters usage and compare to english language
 
     // check for obvious addition of numbers or symbols
@@ -159,7 +163,52 @@ function canBeGuessed(pwd) {
 
     // check for too low of a char diversity
 
-    return can;
+    // check for known passwords
+    checkPwned(pwd);
+
+    callback(can);
+}
+
+// password database checks
+function checkPwned(pwd) {
+    apiCheckId++;
+
+    let id = apiCheckId;
+    window.setTimeout(() => {
+        // don't make too many calls
+        if (apiCheckId != id) return;
+
+        let hash = SHA1(pwd);
+        let hashStart = hash.substring(0, 5);
+
+        fetch("https://api.pwnedpasswords.com/range/"+hashStart).then(response => {
+            if (!response.ok) {
+                console.error("Failed to fetch password hash database, status "+response.status);
+                return;
+            }
+
+            response.text().then(text => {
+                let found = 0;
+
+                text.split("\n").forEach(line => {
+                    let [hash2, count] = line.split(":");
+                    hash2 = hash2.toLowerCase();
+
+                    if (!count) return;
+                    if (hash != hashStart+hash2) return;
+
+                    found = count;
+                });
+
+                apiLastTest = Date.now();
+                if (found) {
+                    let count = "(at least "+found+" time"+(found > 1 ? "s)" : ")");
+                    setCol(0, 100, "WARNING: this password appeared in a data breach!<br />"+count+"<br />More info below");
+                    clearTips();
+                }
+            });
+        });
+    }, Math.max(apiCheckDelay-apiLastTest, 0));
 }
 
 // listeners

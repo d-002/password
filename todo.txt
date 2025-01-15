@@ -1,0 +1,11 @@
+tips:
+password manager
+use different passwords
+why longer
+change regularly
+don't reuse
+we don't store data
+not a guarantee your password is safe, collection of ways to improve passwords
+2fa
+
+ADD SOURCE
