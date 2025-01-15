@@ -92,7 +92,7 @@ function clearTips() {
     dom.tips.innerHTML = "";
 }
 
-function addTip(message, start, end, pwd) {
+function addTip(message, start, end, pwd, addSubstring=true) {
     let line = document.createElement("div");
     let tip = document.createElement("p");
 
@@ -101,7 +101,8 @@ function addTip(message, start, end, pwd) {
     let offset2 = strmult("-", pwd.length-end);
     line.innerHTML = "<div class=\"bar-container\"><div>"+offset1+"</div><div class=\"bar\">"+content+"</div><div>"+offset2+"</div></div>";
 
-    tip.innerHTML = message + " ("+pwd.substring(start, end)+")";
+    if (addSubstring) message += " ("+pwd.substring(start, end)+")";
+    tip.innerHTML = message;
 
     dom.underlines.appendChild(line);
     dom.tips.appendChild(tip);
@@ -155,13 +156,23 @@ function canBeGuessed(pwd, callback) {
         prevD = d;
     }
 
-    // check for proportion of letters usage and compare to english language
+    // check for inclusion of common words
 
     // check for obvious addition of numbers or symbols
 
     // check for vowel alternance (vowel + 1 or 2 consonants, repeated twice)
 
     // check for too low of a char diversity
+    let lettersCount = 0;
+    let letters = [];
+    Array.from(pwd).forEach(c => {
+        let code = c.charCodeAt(0);
+        if (!letters.includes(code)) letters.push(code);
+        lettersCount++;
+    });
+
+    if (letters.length / lettersCount <= 0.6)
+        addTip("Use more diverse letters (not always the same ones)", 0, pwd.length, pwd, false);
 
     // check for known passwords
     checkPwned(pwd);
@@ -182,6 +193,7 @@ function checkPwned(pwd) {
         let hashStart = hash.substring(0, 5);
 
         fetch("https://api.pwnedpasswords.com/range/"+hashStart).then(response => {
+            return;
             if (!response.ok) {
                 console.error("Failed to fetch password hash database, status "+response.status);
                 return;
