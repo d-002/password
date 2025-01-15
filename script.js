@@ -21,6 +21,39 @@ let apiCheckDelay = 300;
 
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
+let dictionaryLoaded = false;
+let dictionary = new Set();
+
+// dictionary setup
+
+function loadDictionary() {
+    fetch("https://raw.githubusercontent.com/filiph/english_words/master/data/word-freq-top5000.csv").then(response => {
+        if (!response.ok) {
+            console.error("Failed to fetch dictionary, status "+response.status);
+            return;
+        }
+
+        let first = true;
+        response.text().then(text => {
+            text.split("\n").forEach(line => {
+                if (first) {
+                    first = false;
+                    return;
+                }
+
+                if (!line) return;
+                let word = line.split(",")[1];
+
+                if (word.length < 3) return;
+                dictionary.add(word);
+            });
+
+            dictionaryLoaded = true;
+            console.log("Done loading English dictionary");
+        });
+    });
+}
+
 // primary password check
 
 function setCol(i, percent, comment) {
@@ -160,6 +193,16 @@ function canBeGuessed(pwd, callback) {
     }
 
     // check for inclusion of common words
+    if (dictionaryLoaded)
+        for (let i = 0, I = l-2; i < I; i++) {
+            for (let j = i+3; j <= l; j++) {
+                let word = pwd.substring(i, j);
+
+                if (dictionary.has(word))
+                    addTip("Detected a common English word", i, j, pwd);
+            }
+        }
+    else addTip("Dictionary is not yet loaded, continue typing for English words suggestions", 0, 0, pwd, false);
 
     // check for obvious addition of numbers or symbols
     for (let n = 0; n < 2; n++) {
@@ -243,6 +286,8 @@ function checkPwned(pwd) {
                 let found = 0;
 
                 text.split("\n").forEach(line => {
+                    if (!line) return;
+
                     let [hash2, count] = line.split(":");
                     hash2 = hash2.toLowerCase();
 
@@ -294,6 +339,8 @@ function resize() {
 
 window.onload = () => {
     Object.keys(dom).forEach(id => dom[id] = document.getElementById(id));
+
+    loadDictionary();
 
     loadFastMode();
     dom.passwd.addEventListener("input", onChange);
