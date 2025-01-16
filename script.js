@@ -6,7 +6,8 @@ let dom = {
     "underlines": null,
     "feedback": null,
     "tips": null,
-    "popup": null
+    "popup": null,
+    "more-container": null
 };
 
 let fastMode;
@@ -344,7 +345,7 @@ function checkPwned(pwd) {
     }, Math.max(apiCheckDelay-apiLastTest, 0));
 }
 
-// settings and local storage
+// settings, listeners
 
 function loadStorage() {
     fastMode = parseInt(localStorage.getItem("fastMode")) || 0;
@@ -384,6 +385,22 @@ function hidePopup() {
     localStorage.setItem("seenPopup", seenPopup);
 }
 
+function openCollapsible(evt) {
+    if (evt.target.tagName.toLowerCase() != 'header') return;
+
+    let section = evt.target.parentNode;
+    let children = section.parentNode.children;
+    let n = Array.prototype.indexOf.call(children, section);
+
+    let show = evt.target.nextElementSibling.className.includes("show") ? 0 : 1;
+
+    for (let i = 0, I = children.length; i < I; i++) {
+        let p = children[i].children[1];
+        p.className = i == n && show ? "show" : "";
+        p.style.maxHeight = i == n && show ? p.scrollHeight + "px" : 0;
+    }
+}
+
 // page start
 
 window.onload = () => {
@@ -398,6 +415,8 @@ window.onload = () => {
     underlines.addEventListener("mouseout", onHoverTipL);
     tips.addEventListener("mouseover", onHoverTipE);
     tips.addEventListener("mouseout", onHoverTipL);
+
+    dom["more-container"].addEventListener("click", openCollapsible);
 
     resize();
     window.addEventListener("resize", resize);

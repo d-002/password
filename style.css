@@ -544,6 +544,10 @@ body.mobile #pass-container {
 }
 
 #more-container header {
+    transition: .3s color;
+
+    cursor: pointer;
+
     padding: 20px;
 
     width: calc(100% - 40px);
@@ -557,7 +561,13 @@ body.mobile #pass-container {
     font-size: 24px;
 }
 
+#more-container header:hover {
+    color: #FFFCFA;
+}
+
 #more-container p {
+    transition: .3s;
+
     box-sizing: content-box;
     margin: 0;
     padding: 10px 10px 50px 10px;
@@ -572,6 +582,14 @@ body.mobile #pass-container {
     color: #FFFC;
     font-size: 16px;
     text-align: justify;
+}
+
+#more-container p:not(.show) {
+    /* collapsed by default */
+    max-height: 0;
+    overflow: hidden;
+
+    padding: 0 10px;
 }
 
 #more-container p>br {
