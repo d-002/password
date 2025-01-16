@@ -364,7 +364,8 @@ function applyFastMode() {
 }
 
 function resize() {
-    let mobile = document.body.clientHeight > document.body.clientWidth;
+    let elt = document.documentElement;
+    let mobile = elt.clientHeight > elt.clientWidth;
     document.body.className = mobile ? "mobile" : "";
 }
 
