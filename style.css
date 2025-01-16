@@ -535,7 +535,7 @@ body.mobile #pass-container {
     background: linear-gradient(0, #0008, transparent);
 }
 
-#more-container>section {
+#more-container section {
     overflow: hidden;
 
     display: flex;
@@ -544,7 +544,7 @@ body.mobile #pass-container {
 }
 
 #more-container header {
-    transition: .3s color;
+    transition: .3s;
 
     cursor: pointer;
 
@@ -558,11 +558,17 @@ body.mobile #pass-container {
     border-radius: 14px;
     color: #FFE0D0;
 
+    text-shadow: 0 0 10px #FFE0D050;
+
     font-size: 24px;
 }
 
 #more-container header:hover {
     color: #FFFCFA;
+}
+
+#more-container section:has(p.show) header {
+    background-color: #3A2A4580;
 }
 
 #more-container p {
@@ -590,6 +596,10 @@ body.mobile #pass-container {
     overflow: hidden;
 
     padding: 0 10px;
+}
+
+#more-container p.show {
+    background-color: #3A2A4550;
 }
 
 #more-container p>br {
