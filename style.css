@@ -70,7 +70,7 @@ body {
 }
 
 #fast::before {
-    content: "Fast mode";
+    content: "Eco mode";
 
     position: absolute;
     top: 50%;
@@ -116,6 +116,7 @@ body {
 }
 
 h1 {
+    position: relative;
     margin: 20px 0;
 
     font-size: 64px;
@@ -131,6 +132,7 @@ h1, body:not(.mobile) :is(h1::before, h1::after) {
 body:not(.mobile) h1::before, body:not(.mobile) h1::after {
     content: "";
     position: absolute;
+    left: 0;
     top: 50%;
 
     transform: translate(-50%, -50%);
@@ -142,11 +144,11 @@ body:not(.mobile) h1::before, body:not(.mobile) h1::after {
     border-radius: 3px;
 }
 
-h1::before {
+body:not(.mobile) h1::before {
     left: -10%;
 }
 
-h1::after {
+body:not(.mobile) h1::after {
     left: 110%;
 }
 
@@ -156,6 +158,31 @@ h2 {
     font-size: 22px;
     font-weight: normal;
     color: #FFFC;
+}
+
+#title {
+    position: relative;
+}
+
+#title::before {
+    content: "D_00's";
+
+    position: absolute;
+    top: 0;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFC;
+}
+
+body:not(.mobile) #title::before {
+    left: 0;
+    transform: translateX(5px);
+}
+
+body.mobile #title::before {
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* slider */
