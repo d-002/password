@@ -7,6 +7,7 @@ let dom = {
     "feedback": null,
     "tips": null,
     "popup": null,
+    "more": null,
     "more-container": null
 };
 
@@ -23,6 +24,9 @@ let testCheckDelay = 100;
 let apiLastTest = 0;
 let apiCheckId = 0;
 let apiCheckDelay = 300;
+
+let scrollDelay = 500;
+let FPS = () => fastMode ? 10 : 60;
 
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
@@ -67,11 +71,6 @@ function setCol(i, percent, comment) {
     let col = i == -1 ? "transparent" : barCols[i];
     dom["pass-container"].style = "--percent: "+percent+"%; --col: "+col;
     dom.feedback.innerHTML = comment;
-}
-
-function updateShow() {
-    let show = dom.show.checked;
-    dom.passwd.type = show ? "text" : "password";
 }
 
 function onChange() {
@@ -380,9 +379,33 @@ function showPopup() {
 function hidePopup() {
     dom.popup.className = "hidden";
 
-    // update local storage
+    // update local storag
     seenPopup = Date.now();
     localStorage.setItem("seenPopup", seenPopup);
+}
+
+function updateShow() {
+    let show = dom.show.checked;
+    dom.passwd.type = show ? "text" : "password";
+}
+
+let smootherStep = t => ((6*t - 15)*t + 10) * t*t*t;
+
+function scrollDown() {
+    let scrollX = window.scrollX;
+    let scroll0 = window.scrollY;
+    let scroll1 = Math.min(dom.more.offsetTop, document.documentElement.scrollHeight-window.innerHeight);
+
+    let start = Date.now();
+
+    let interval = window.setInterval(() => {
+        let t = (Date.now()-start) / scrollDelay;
+        if (t > 1) window.clearInterval(interval);
+
+        t = smootherStep(t);
+
+        window.scroll(scrollX, scroll0 + (scroll1-scroll0)*t);
+    }, 1000/FPS());
 }
 
 function openCollapsible(evt) {
