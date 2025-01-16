@@ -176,8 +176,7 @@ h2 {
 }
 
 body:not(.mobile) #title::before {
-    left: 0;
-    transform: translateX(5px);
+    left: 6px;
 }
 
 body.mobile #title::before {

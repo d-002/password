@@ -84,7 +84,7 @@ function onChange() {
     checkPwned(pwd);
 
     if (pwd.length < 12)
-        return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long.");
+        return setCol(0, pwd.length / 0.28, "Good passwords are at least 12 characters long. See why below.");
 
     let lowercase = false, uppercase = false, digit = false, special = false;
     Array.from(pwd).forEach(c => {

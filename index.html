@@ -62,6 +62,60 @@
         </p>
 
         <div id="more-container">
+            <section>
+                <header>Will this make my password unbreakable?</header>
+                <p>
+                    This tool is here to help you create what I think is a respectable password, that should be hard to guess by both humans and computers.<br />
+                    This doesn't mean your password will be unbreakable: I am merely showing ways to make a password harder to break, but give it enough time and almost any password can be cracked. Now let's make that delay as long as possible, say, a billion years.
+                </p>
+            </section>
+            <section>
+                <header>Don't reuse passwords</header>
+                <p>
+                    When you use a password on, say, a website, it is common for it to be stored in some secure way (maybe <a href="https://en.wikipedia.org/wiki/Hash">hashed</a>). This all works well in theory, but, in practice, maybe a website you are registered in will suffer a data leak / breach, meaning that sensitive information is revealed.<br />
+                    If your data happens to be part of that leak, it is possible that your password can be made available to the public. This is bad, but it becomes even worse if you happen to reuse passwords across multiple websites. <strong>It doesn't matter how safe websites are</strong>, if your password is leaked through another website, then your account is as good as dead.
+                </p>
+            </section>
+            <section>
+                <header>On password managers</header>
+                <p>
+                    Password managers are a great tool in theory, allowing you to build very complicated and hard to break passwords without limits, since you don't really need to remember them.<br />
+                    However, this can become an issue in practice, if a hacker gets access to your passwords inside that manager. How I like to think about it is a password manager acts the same way as reusing a password (see previous point): when cracked, it puts your data on other websites at risk.<br />
+                    You should then make sure a password manager is secure before using it confidently, and remember that your passwords can't be stored more safely than in your head.
+                </p>
+            </section>
+            <section>
+                <header>Change your passwords regularly</header>
+                <p>
+                    Data leaks / breaches happen all the time. These are when some service, like a website, suffers attacks that render sensitive information, like passwords, available publicly.<br />
+                    You don't exactly get notified when these happen, companies might even hide them to avoid losing credit. And that's without the possibility that someone else could be using the same password as you on another website that gets hacked, putting you at risk.<br />
+                    A simple and effective way to avoid this is by regularly changing your passwords, for example through our tool, which helps you avoid passwords that have appeared in previous data leaks.
+                </p>
+            </section>
+            <section>
+                <header>Why does password length matter?</header>
+                <p>
+                    Say you want to create a password using only latin letters. If you were to create a password with only one character, there would be 26 different passwords (not counting uppercase letters).<br />
+                    Now, add one more letter, and all of a sudden the number of possible passwords jump to 676. This might seem like a small increase, but remember, we only added one letter! This increase in possibilities is exponential, meaning it grows very fast. At just 8 characters, you have <strong>more than 200 billion possible passwords!</strong><br />
+                    Maximizing the number of possible passwords is important because of how they can be broken. For example, a dumb but effective strategy could be to test all possible passwords - <code>aaaaaa</code>, <code>aaaaab</code> and so on. This is called brute forcing, and computers are getting really good at it, especially since they keep getting faster. Having a long password can make you think several steps ahead of them, making guessing your password humanly infeasible.
+                </p>
+            </section>
+            <section>
+                <header>Why use lowercase/uppercase letters, numbers, symbols?</header>
+                <p>
+                    If you read the previous point, you should understand why maximizing possibilities is a crucial element in making a secure password.<br />
+                    Websites often ask their users to add numbers or special characters / symbols to their passwords. To understand why this is important, let's imagine a world where this restriction doesn't exist, and examine the consequences.<br />
+                    If people weren't forced to use uncommon characters in their passwords, then the greater part of the world's passwords would probably be made out of just lowercase letters: common words, names, dates, places. Knowing this, attackers could focus their guessing efforts into just letter sequences, making their progression much faster:<br />
+                    Say we only used numbers in our passwords, then a 6-digit one would only have a million different possibilities. Now, if we add just the few characters that have existed on keyboards since the 1960s, <strong>a 6-digit password has 350 trillion possibilities.</strong> Mad!
+                </p>
+            </section>
+            <section>
+                <header>On multiple factor authentication</header>
+                <p>
+                    Authenticating using multiple factors like password, phone verification code, can drastically help secure an account, which is why you see this used in many of the most influential companies: Google, Microsoft... Even online wallets, whether they deal with cryptocurrencies or USD, often use some kind of parallel authentication method.<br />
+                    This technology is great, since using diverse ways of logging in force attackers to have control over many more of the devices you own. <strong>However, linking personal information (phone number, email) with your passwords isn't the best idea</strong> in case of a data leak or breach: if the system gets hacked, then attackers now know who's phone is owned by who, and which passwords it may contain...
+                </p>
+            </section>
         </div>
     </body>
 </html>
