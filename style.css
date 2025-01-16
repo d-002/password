@@ -478,7 +478,7 @@ body.mobile #pass-container {
 }
 
 #more::after {
-    content: ".";
+    content: "";
 
     transition: .3s transform;
     transform: translateX(-50%);
@@ -497,9 +497,6 @@ body.mobile #pass-container {
     background-size: contain;
     background-position: center;
     filter: invert(1) opacity(0.8);
-
-    font-size: 80px;
-    color: transparent;
 }
 
 #more:hover {
@@ -545,9 +542,9 @@ body.mobile #pass-container {
 
 #more-container header {
     transition: .3s;
-
     cursor: pointer;
 
+    position: relative;
     padding: 20px;
 
     width: calc(100% - 40px);
@@ -569,6 +566,34 @@ body.mobile #pass-container {
 
 #more-container section:has(p.show) header {
     background-color: #3A2A4580;
+}
+
+#more-container header::after {
+    transition: .3s;
+
+    content: "";
+
+    position: absolute;
+    top: 21px;
+    right: 21px;
+
+    width: 30px;
+    height: 30px;
+
+    background-image: url("images/down.png");
+    background-size: contain;
+    background-position: center;
+
+    transform: rotate(-90deg);
+    filter: invert(1) opacity(0.8);
+}
+
+#more-container :is(header:hover, section:has(p.show) header)::after {
+    transform: rotate(0);
+}
+
+#more-container section:has(p.show) header::after {
+    filter: invert(1) opacity(0);
 }
 
 #more-container p {
