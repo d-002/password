@@ -453,14 +453,14 @@ body.mobile #pass-container {
     color: #FFF7;
 }
 
-.notice a {
+:is(.notice, #more-container) a {
     color: #EAAC8B;
 
     font-weight: bold;
     text-decoration: none;
 }
 
-.notice a:hover {
+:is(.notice, #more-container) a:hover {
     color: #F1C1A7;
 }
 
@@ -519,6 +519,8 @@ body.mobile #pass-container {
     width: 80%;
 
     background-color: #0008;
+
+    text-align: left;
 }
 
 #more-container::before {
@@ -531,4 +533,61 @@ body.mobile #pass-container {
     height: 200px;
 
     background: linear-gradient(0, #0008, transparent);
+}
+
+#more-container>section {
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#more-container header {
+    padding: 20px;
+
+    width: calc(100% - 40px);
+    max-width: 700px;
+
+    box-sizing: border-box;
+    border: 2px solid #B56576;
+    border-radius: 14px;
+    color: #FFE0D0;
+
+    font-size: 24px;
+}
+
+#more-container p {
+    box-sizing: content-box;
+    margin: 0;
+    padding: 10px 10px 50px 10px;
+
+    width: 80%;
+    max-width: 600px;
+
+    border: 2px solid #B56576;
+    border-top: none;
+    border-bottom: none;
+
+    color: #FFFC;
+    font-size: 16px;
+    text-align: justify;
+}
+
+#more-container p>br {
+    content: "";
+    display: block;
+    margin: .5em;
+}
+
+#more-container p>code {
+    font-family: consolas, monospace;
+
+    color: #B56576;
+}
+
+#more-container p>strong {
+    font-weight: strong;
+    font-style: italic;
+    color: #FFFCFA;
 }
