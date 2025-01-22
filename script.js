@@ -31,7 +31,7 @@ let FPS = () => fastMode ? 10 : 60;
 let barCols = ["#481D24", "#C5283D", "#E9724C", "#FFAD04", "#267A4C"]
 
 let dictionaryLoaded = false;
-let dictionary = new Set(["pwd", "usr", "sudo", "mac", "ios", "linux", "jan", "feb", "mar", "apr", "jun", "sep", "oct", "nov", "dec"]);
+let dictionary = new Set(["pwd", "usr", "sudo", "ios", "linux", "jan", "feb", "mar", "apr", "jun", "sep", "oct", "nov", "dec"]);
 
 // dictionary setup
 
@@ -190,7 +190,7 @@ function canBeGuessed(pwd, callback) {
         if (c == prev) count++;
         else {
             if (count > 1) {
-                addTip("Remove repeated letters", i-count, i, pwd);
+                addTip("Avoid repeated letters", i-count, i, pwd);
                 can = true;
             }
             count = 1;
@@ -211,7 +211,7 @@ function canBeGuessed(pwd, callback) {
         if (d == prevD || prevD == -1) count++;
         else {
             if (count > 1 && prevD > 0 && prevD < 3) {
-                addTip("Remove predictable letter sequences", i-count-1, i, pwd);
+                addTip("Avoid predictable letter sequences", i-count-1, i, pwd);
                 can = true;
             }
             count = 1;
@@ -270,8 +270,10 @@ function canBeGuessed(pwd, callback) {
         let type = vowel ? 0 : consonant ? 1 : 2;
 
         if (type == 2 || type == lastType) {
-            if (count > 2) addTip("Avoid vowel/consonant patterns, since they look like words", i-count-1, i, pwd);
-            can = true;
+            if (count > 2) {
+                addTip("Avoid vowel/consonant patterns, since they look like words", i-count-1, i, pwd);
+                can = true;
+            }
             count = 0;
         }
         else if (lastType != 2 && (type ^ lastType)) count++;
