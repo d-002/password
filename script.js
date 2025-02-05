@@ -1,4 +1,5 @@
 let dom = {
+    "main": null,
     "shapes": null,
     "show": null,
     "pass-container": null,
@@ -367,8 +368,19 @@ function applyFastMode() {
 
 function resize() {
     let elt = document.documentElement;
-    let mobile = elt.clientHeight > elt.clientWidth;
+    let H = elt.clientHeight;
+
+    // update mobile
+    let mobile = H > elt.clientWidth;
     document.body.className = mobile ? "mobile" : "";
+
+    // hide the More tips button if no space
+    let height = dom.main.clientHeight;
+
+    let marginTop = parseFloat(window.getComputedStyle(dom.main)["marginTop"]);
+    let availableHeight = H - dom.main.clientHeight - marginTop;
+
+    dom.more.style.display = availableHeight > 100 ? "block" : "none";
 }
 
 function showPopup() {
